@@ -3,8 +3,8 @@ class LeadsWorker
   include Sidekiq::Worker
 
   def perform(songs_file)
-    CSV.foreach(songs_file, headers: true) do |lead|
-      Customer.create(email: lead[0], first_name: lead[1], last_name: lead[2])
+    CSV.foreach(params["file"].path, headers: true) do |song|
+      Song.create(title: song[0], artist_name: song[1])
     end
   end
 end
